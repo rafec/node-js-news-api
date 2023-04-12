@@ -1,5 +1,5 @@
-import Author from "./authors/Authors";
-import News from "./news/News";
+import Author from "./authors/Authors.js";
+import News from "./news/News.js";
 
 Author.hasMany(News);
 

@@ -14,6 +14,7 @@ export default db.define('author', {
     },
     bio: {
         type: Sequelize.STRING,
+        allowNull: false
     },
     isIndependent: {
         type: Sequelize.BOOLEAN

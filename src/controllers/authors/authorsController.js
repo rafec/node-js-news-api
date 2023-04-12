@@ -1,6 +1,6 @@
-import { Author as AuthorRepository } from "../../models";
+import { Author as AuthorRepository } from "../../models/index.js";
 
-async function findAll(request, response) {
+async function findAllAuthors(request, response) {
     try {
         const authors = await AuthorRepository.findAll();
         response.status(200).json({ message: 'Succesfull operation', data: authors });
@@ -77,4 +77,4 @@ async function deleteAuthor(request, response) {
     };
 };
 
-export default { findAll, findAuthor, addAuthor, updateAuthor, deleteAuthor };
+export default { findAllAuthors, findAuthor, addAuthor, updateAuthor, deleteAuthor };

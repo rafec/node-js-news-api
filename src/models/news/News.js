@@ -1,4 +1,5 @@
 import { Sequelize } from "sequelize";
+import Author from "../authors/Authors.js";
 import db from "../../database/database.js";
 
 export default db.define("news", {
@@ -20,7 +21,7 @@ export default db.define("news", {
         type: Sequelize.ENUM('Sports', 'Police', 'Culinary', 'General'),
         allowNull: false
     },
-    authorId: {
+    author_id: {
         type: Sequelize.INTEGER.UNSIGNED,
         references: {
             model: Author,

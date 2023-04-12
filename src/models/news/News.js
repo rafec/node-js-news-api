@@ -21,7 +21,7 @@ export default db.define("news", {
         allowNull: false
     },
     authorId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER.UNSIGNED,
         references: {
             model: Author,
             key: 'id'

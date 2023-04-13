@@ -1,8 +1,8 @@
-import { Author as AuthorRepository } from "../../models/index.js";
+import { Author as AuthorRepository, News as NewsRepository } from "../../models/index.js";
 
 async function findAllAuthors(request, response) {
     try {
-        const authors = await AuthorRepository.findAll();
+        const authors = await AuthorRepository.findAll({ incude: "news" });
         response.status(200).json({ message: 'Succesfull operation', data: authors });
     } catch (error) {
         console.log('Error retrieving authors records: ', error);
@@ -11,13 +11,13 @@ async function findAllAuthors(request, response) {
 };
 
 async function findAuthor(request, response) {
+    const authorId = request.params.id;
     try {
-        const authorId = request.params.id;
         const author = await AuthorRepository.findByPk(authorId);
         response.status(200).json({ message: 'Succesfull operation', data: author });
     } catch (error) {
         console.log(`Error retrieving author records with id: ${authorId}`, error);
-        response.status(500).json({ message: 'Operation failed', data: [] });
+        response.status(500).json({ message: 'Operation failed', data: {} });
     };
 };
 
@@ -37,9 +37,8 @@ async function addAuthor(request, response) {
 };
 
 async function updateAuthor(request, response) {
+    const authorId = request.params.id;
     try {
-        const authorId = request.params.id;
-
         await AuthorRepository.update({
             name: request.body.name,
             bio: request.body.bio,
@@ -56,21 +55,21 @@ async function updateAuthor(request, response) {
         response.status(200).json({ message: 'Succesfull operation', data: updatedAuthor });
     } catch (error) {
         console.log(`Error updating author with id: ${authorId}`, error);
-        response.status(500).json({ message: 'Operation failed', data: [] });
+        response.status(500).json({ message: 'Operation failed', data: {} });
     };
 };
 
 async function deleteAuthor(request, response) {
+    const authorId = request.params.id;
     try {
-        const authorId = request.params.id;
         await AuthorRepository.destroy({
             where: {
                 id: authorId
             }
         });
 
-        const authors = await AuthorRepository.findAll();
-        response.status(200).json({ message: 'Succesfull operation', data: authors });
+        const allAuthors = await AuthorRepository.findAll();
+        response.status(200).json({ message: 'Succesfull operation', data: allAuthors });
     } catch (error) {
         console.log(`Error deleting author with id: ${authorId}`, error);
         response.status(500).json({ message: 'Operation failed', data: [] });

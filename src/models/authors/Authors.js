@@ -18,5 +18,14 @@ export default db.define('author', {
     },
     isIndependent: {
         type: Sequelize.BOOLEAN
+    },
+    email: {
+        type: Sequelize.STRING(155),
+        allowNull: false,
+        unique: true
+    },
+    password: {
+        type: Sequelize.STRING(200),
+        allowNull: false
     }
 });

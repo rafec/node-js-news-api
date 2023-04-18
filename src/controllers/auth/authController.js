@@ -19,18 +19,18 @@ async function login(request, response) {
         const passwordIsValid = bcrypt.compareSync(password, author.password);
 
         if (!passwordIsValid) {
-            return response.status(401).json({message: 'Operation failed', data: 'User not authorized'});
+            return response.status(401).json({ message: 'Operation failed', data: 'User not authorized' });
         };
 
-        const token = jwt.sign({id: author.id}, jwtSecret, {
+        const token = jwt.sign({ id: author.id }, jwtSecret, {
             expiresIn: 86400
         });
 
-        return response.status(200).json({message: 'Operation succesfull', data: {token: token}});
+        return response.status(200).json({ message: 'Operation succesfull', data: { token: token } });
     } catch (error) {
         console.error('Login error: ', error);
-        return response.status(500).json({message: 'Operation failed', data: {}});
+        return response.status(500).json({ message: 'Operation failed', data: {} });
     };
 };
 
-export default login;
+export default { login };

@@ -1,12 +1,7 @@
-import express from "express";
-import routes from "./routes/routes.js";
+import app from "./app.js";
 import db from "./database/database.js";
 
-const app = express();
 const serverPort = 3333;
-
-app.use(express.json());
-app.use(routes);
 
 let alter;
 if (process.env.IS_DEV) {
